@@ -6,7 +6,6 @@ let package = Package(
     name: "swift-winui",
     products: [
         .library(name: "WinUI", type: .static, targets: ["WinUI"]),
-        .library(name: "WebView2Core", type: .static, targets: ["WebView2Core"]),
     ],
     dependencies: [
         .package(
@@ -25,6 +24,10 @@ let package = Package(
             url: "https://github.com/mutle/swift-windowsfoundation",
             revision: "04ba0d2f81c2cf137147de485619fa5a5d3ab974"
         ),
+        .package(
+            url: "https://github.com/mutle/swift-webview2core",
+            revision: "bc9eabee929d13a25b1fa7c5668ade46cb863e3a"
+        ),
     ],
     targets: [
         .target(
@@ -34,15 +37,7 @@ let package = Package(
                 .product(name: "UWP", package: "swift-uwp"),
                 .product(name: "WinAppSDK", package: "swift-windowsappsdk"),
                 .product(name: "WindowsFoundation", package: "swift-windowsfoundation"),
-                "WebView2Core",
-            ]
-        ),
-        .target(
-            name: "WebView2Core",
-            dependencies: [
-                .product(name: "CWinRT", package: "swift-cwinrt"),
-                .product(name: "UWP", package: "swift-uwp"),
-                .product(name: "WindowsFoundation", package: "swift-windowsfoundation"),
+                .product(name: "WebView2Core", package: "swift-webview2core"),
             ]
         ),
         .testTarget(
