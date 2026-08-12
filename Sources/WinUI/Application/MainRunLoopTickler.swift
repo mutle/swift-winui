@@ -1,3 +1,4 @@
+#if os(Windows)
 import Foundation
 import WinSDK
 
@@ -109,3 +110,4 @@ private let runLoopTicklerWindowHook: HOOKPROC = { (nCode: Int32, wParam: WPARAM
 private let runLoopTicklerTimerProc: TIMERPROC = { (_: HWND?, _: UINT, _: UINT_PTR, _: DWORD) in
     MainRunLoopTickler.instance.doWork()
 }
+#endif

@@ -1,3 +1,4 @@
+#if os(Windows)
 import Foundation
 import WinAppSDK
 @_spi(WinRTImplements) import WindowsFoundation
@@ -84,3 +85,4 @@ open class SwiftApplication: Application, IXamlMetadataProvider {
         try metadataProvider.getXamlType(fullName)
     }
 }
+#endif
