@@ -2,69 +2,51 @@
 
 import PackageDescription
 
-#if arch(x86_64)
-    let windowsAppRTBootstrapDll: Resource = .copy("nuget/bin/x86_64/Microsoft.WindowsAppRuntime.Bootstrap.dll")
-#elseif arch(arm64)
-    let windowsAppRTBootstrapDll: Resource = .copy("nuget/bin/arm64/Microsoft.WindowsAppRuntime.Bootstrap.dll")
-#endif
-
 let package = Package(
     name: "swift-winui",
     products: [
         .library(name: "WinUI", type: .static, targets: ["WinUI"]),
-        .library(name: "WebView2Core", type: .static, targets: ["WebView2Core"]),
-        .library(name: "WinAppSDK", type: .static, targets: ["WinAppSDK"]),
-        .library(name: "UWP", type: .static, targets: ["UWP"]),
-        .library(name: "WindowsFoundation", type: .static, targets: ["WindowsFoundation"]),
-        .library(name: "CWinRT", type: .static, targets: ["CWinRT"]),
+    ],
+    dependencies: [
+        .package(
+            url: "https://github.com/mutle/swift-cwinrt",
+            revision: "a5988c9ec83d9ae1f1a4cd83051127f625ff60f7"
+        ),
+        .package(
+            url: "https://github.com/mutle/swift-uwp",
+            revision: "7aff869b2a6badeeaf82b9f68837f755995154e9"
+        ),
+        .package(
+            url: "https://github.com/mutle/swift-windowsappsdk",
+            revision: "4bc48b48003c336c5189fe5d7146559f25a0c015"
+        ),
+        .package(
+            url: "https://github.com/mutle/swift-windowsfoundation",
+            revision: "a112318dc42f2031b18a7a2db5d03fc46f452449"
+        ),
+        .package(
+            url: "https://github.com/mutle/swift-webview2core",
+            revision: "2328878e8ac5c4989dbbcb919e36d0bace919950"
+        ),
     ],
     targets: [
         .target(
             name: "WinUI",
             dependencies: [
-                "CWinRT",
-                "UWP",
-                "WinAppSDK",
-                "WindowsFoundation",
-                "WebView2Core",
+                .product(name: "CWinRT", package: "swift-cwinrt"),
+                .product(name: "UWP", package: "swift-uwp"),
+                .product(name: "WinAppSDK", package: "swift-windowsappsdk"),
+                .product(name: "WindowsFoundation", package: "swift-windowsfoundation"),
+                .product(name: "WebView2Core", package: "swift-webview2core"),
             ]
         ),
-        .target(name: "CWinRT"),
-        .target(
-            name: "UWP",
-            dependencies: [
-                "CWinRT",
-                "WindowsFoundation",
-            ]
+        .testTarget(
+            name: "WinUIImportSmokeTests",
+            dependencies: ["WinUI"]
         ),
-        .target(
-            name: "WinAppSDK",
-            dependencies: [
-                "CWinRT",
-                "UWP",
-                "WindowsFoundation",
-                "CWinAppSDK",
-            ]
-        ),
-        .target(
-            name: "CWinAppSDK",
-            resources: [
-                windowsAppRTBootstrapDll,
-            ]
-        ),
-        .target(
-            name: "WindowsFoundation",
-            dependencies: [
-                "CWinRT",
-            ]
-        ),
-        .target(
-            name: "WebView2Core",
-            dependencies: [
-                "CWinRT",
-                "UWP",
-                "WindowsFoundation",
-            ]
+        .testTarget(
+            name: "WinUIWindowsAPICompileSmokeTests",
+            dependencies: ["WinUI"]
         ),
     ]
 )

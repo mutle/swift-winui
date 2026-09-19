@@ -72,6 +72,29 @@ function Copy-Project {
             Remove-Item -Path $ProjectDir -Recurse -Force
         }
         Copy-Item -Path $OutputLocation\Sources\$ProjectName -Destination $ProjectDir -Recurse -Force
+        Add-WindowsPlatformGuards -ProjectDir $ProjectDir
+    }
+}
+
+function Add-WindowsPlatformGuards {
+    param(
+        [string]$ProjectDir
+    )
+
+    Get-ChildItem -Path $ProjectDir -Filter *.swift -Recurse | ForEach-Object {
+        $Contents = [System.IO.File]::ReadAllText($_.FullName)
+        if (-not $Contents.StartsWith("#if os(Windows)")) {
+            $GuardedContents = "#if os(Windows)`r`n$Contents"
+            if (-not $GuardedContents.EndsWith("`n")) {
+                $GuardedContents += "`r`n"
+            }
+            $GuardedContents += "#endif`r`n"
+            [System.IO.File]::WriteAllText(
+                $_.FullName,
+                $GuardedContents,
+                [System.Text.UTF8Encoding]::new($false)
+            )
+        }
     }
 }
 
