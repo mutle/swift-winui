@@ -18,7 +18,7 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/mutle/swift-windowsappsdk",
-            revision: "4bc48b48003c336c5189fe5d7146559f25a0c015"
+            revision: "94b5dced14a1613fede950662bc966eee913a536"
         ),
         .package(
             url: "https://github.com/mutle/swift-windowsfoundation",
