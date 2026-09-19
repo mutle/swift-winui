@@ -10,23 +10,23 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/mutle/swift-cwinrt",
-            revision: "e9db556eb47958cd904366647b1a45c831cbc38f"
+            revision: "a5988c9ec83d9ae1f1a4cd83051127f625ff60f7"
         ),
         .package(
             url: "https://github.com/mutle/swift-uwp",
-            revision: "9506997bbc759b168cf45a2022a22a2b4294d7c7"
+            revision: "7aff869b2a6badeeaf82b9f68837f755995154e9"
         ),
         .package(
             url: "https://github.com/mutle/swift-windowsappsdk",
-            revision: "aa837e8adaf6c20483b86f9cf0e60048a9072f74"
+            revision: "4bc48b48003c336c5189fe5d7146559f25a0c015"
         ),
         .package(
             url: "https://github.com/mutle/swift-windowsfoundation",
-            revision: "04ba0d2f81c2cf137147de485619fa5a5d3ab974"
+            revision: "a112318dc42f2031b18a7a2db5d03fc46f452449"
         ),
         .package(
             url: "https://github.com/mutle/swift-webview2core",
-            revision: "bc9eabee929d13a25b1fa7c5668ade46cb863e3a"
+            revision: "2328878e8ac5c4989dbbcb919e36d0bace919950"
         ),
     ],
     targets: [
